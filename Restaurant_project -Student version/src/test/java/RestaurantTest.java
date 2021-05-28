@@ -69,5 +69,20 @@ class RestaurantTest {
         assertThrows(itemNotFoundException.class,
                 () -> restaurant.removeFromMenu("French fries"));
     }
+
+    @Test
+    public void order_value_does_not_match_the_items_price_sum() {
+        LocalTime openingTime = LocalTime.parse("10:30:00");
+        LocalTime closingTime = LocalTime.parse("22:00:00");
+        restaurant = new Restaurant("Amelie's cafe", "Chennai", openingTime, closingTime);
+        String item1 = "Sweet corn soup";
+        String item2 = "Vegetable lasagne";
+
+        restaurant.addToMenu(item1, 119);
+        restaurant.addToMenu(item2, 269);
+        String[] array = {item1, item2};
+        assertNotEquals(0, restaurant.getOrderValue(array));
+    }
+
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
